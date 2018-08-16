@@ -19,7 +19,6 @@ import com.iportalen.timestack.domain.model.User;
 @SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
 public class UserRepositoryTests {
-	private final String USER_EMAIL = "a@b.c";
 	private final String USER_PHONENUMBER = "+4587654321";
 
 	@Autowired
@@ -37,7 +36,6 @@ public class UserRepositoryTests {
 	@Test
 	public void saveUserTest() {
 		User user = userRepository.save(User.builder()
-				.email(USER_EMAIL)
 				.username(USER_PHONENUMBER)
 				.phonenumber(USER_PHONENUMBER)
 				.build());

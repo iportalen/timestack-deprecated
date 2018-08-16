@@ -1,4 +1,4 @@
-package com.iportalen.timestack.service.core.sms.linkmobility;
+package com.iportalen.timestack.service.sms.linkmobility;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +23,7 @@ public class LinkmobilityMessageTests {
 	ObjectMapper objectMapper;
 	
 	@Test
-	public void messageFormat() throws JsonProcessingException {
+	public void messageSerialization() throws JsonProcessingException {
 		LinkmobilityMessage message = LinkmobilityMessage.builder().recipients(new String[]{"+4587654321"}).message("testmessage").sender("sender").build();
 		assertEquals("{\"message\":{\"recipients\":\"+4587654321\",\"sender\":\"sender\",\"message\":\"testmessage\"}}", objectMapper.writeValueAsString(message));
 	}

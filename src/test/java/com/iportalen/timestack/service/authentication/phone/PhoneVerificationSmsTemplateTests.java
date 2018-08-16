@@ -1,4 +1,4 @@
-package com.iportalen.timestack.service.core.authentication.phone;
+package com.iportalen.timestack.service.authentication.phone;
 
 import static com.iportalen.timestack.service.sms.SmsTemplateConstants.PHONENUMBER_VERIFICATION_SMS_ARG_CODE;
 import static com.iportalen.timestack.service.sms.SmsTemplateConstants.PHONENUMBER_VERIFICATION_SMS_PATH;
