@@ -69,15 +69,19 @@ public class FirebasePhoneTokenController {
 			CreateRequest createReq = new CreateRequest();
 			createReq.setPhoneNumber(authRequest.getPhonenumber());
 			createReq.setDisabled(false);
+			UserRecord userRecord = null;
 			try {
-				UserRecord userRecord = FirebaseAuth.getInstance().getUserByPhoneNumber(authRequest.getPhonenumber());
-				userRecord = userRecord == null ? FirebaseAuth.getInstance().createUser(createReq) : userRecord;
-				response.setHeader("X-Firebase-CustomToken", FirebaseAuth.getInstance().createCustomToken(userRecord.getUid()));
-				return ResponseEntity.ok().body(null);
-			} catch (FirebaseAuthException e1) {
-				return ResponseEntity.badRequest().body(null);
+				userRecord = FirebaseAuth.getInstance().createUser(createReq);
+			} catch (FirebaseAuthException e) {
+				try {
+					userRecord = FirebaseAuth.getInstance().getUserByPhoneNumber(authRequest.getPhonenumber());
+				} catch (FirebaseAuthException e1) {
+					return ResponseEntity.badRequest().body(null);
+				}
 			}
-		} catch (NullPointerException | PhonenumberVerificationException | ExecutionException e) {
+			response.setHeader("X-Firebase-CustomToken", FirebaseAuth.getInstance().createCustomToken(userRecord.getUid()));
+			return ResponseEntity.ok().body(null);
+		} catch (NullPointerException | PhonenumberVerificationException | ExecutionException | FirebaseAuthException e) {
 			return ResponseEntity.badRequest().body(null);
 		}
     }
