@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    include: default
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true  
+  datasource:
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    driver-class-name: "com.mysql.jdbc.Driver"
+    url: "DATABASE_URL"
+    username: "DATABASE_USERNAME"
+    password: "DATABASE_PASSWORD"
+  
+cors:
+  allowedorigins: "*"
+
+firebase:
+  enabled: true
+  database:
+    url: "https://DATABASE_URL.firebaseio.com"
+  config:
+    path: "firebase/FIREBASE_CONFIG_FILE"
+      
+sms:
+  gateway:
+    linkmobility:
+      apikey: "API_KEY"
+      url:
+        send: "http://api.linkmobility.dk/v2/message.json"

@@ -1,0 +1,122 @@
+databaseChangeLog:
+- changeSet:
+    id: 1534343228252-1
+    author: johannesnormannjensen (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: authority
+            type: VARCHAR(255)
+        tableName: role
+- changeSet:
+    id: 1534343228252-2
+    author: johannesnormannjensen (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              unique: true
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              unique: true
+            name: firebase_uid
+            type: VARCHAR(255)
+        - column:
+            name: password
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              unique: true
+            name: phonenumber
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+              unique: true
+            name: username
+            type: VARCHAR(255)
+        tableName: user
+- changeSet:
+    id: 1534343228252-3
+    author: johannesnormannjensen (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: authorities_id
+            type: BIGINT
+        tableName: user_authorities
+- changeSet:
+    id: 1534343228252-4
+    author: johannesnormannjensen (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: authorities_id
+        indexName: FK1nqvgotmn9fcfarl4rnp6iu7k
+        tableName: user_authorities
+- changeSet:
+    id: 1534343228252-5
+    author: johannesnormannjensen (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKmj13d0mnuj4cd8b6htotbf9mm
+        tableName: user_authorities
+- changeSet:
+    id: 1534343228252-6
+    author: johannesnormannjensen (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: authorities_id
+        baseTableName: user_authorities
+        constraintName: FK1nqvgotmn9fcfarl4rnp6iu7k
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: role
+        validate: true
+- changeSet:
+    id: 1534343228252-7
+    author: johannesnormannjensen (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_authorities
+        constraintName: FKmj13d0mnuj4cd8b6htotbf9mm
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user
+        validate: true
+
