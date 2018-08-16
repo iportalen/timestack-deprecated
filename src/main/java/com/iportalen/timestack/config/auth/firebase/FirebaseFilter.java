@@ -17,7 +17,6 @@ import com.iportalen.timestack.service.firebase.FirebaseService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class FirebaseFilter extends OncePerRequestFilter {
 
 	private static String HEADER_NAME = "X-Authorization-Firebase";
@@ -32,7 +31,6 @@ public class FirebaseFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		log.info("onceper req");
 		String xAuth = request.getHeader(HEADER_NAME);
 		if (Strings.isBlank(xAuth)) {
 			filterChain.doFilter(request, response);
