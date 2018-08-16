@@ -1,10 +1,7 @@
 [![N|Solid](https://iportalen.dk/images/blue-logo-full.png)](https://iportalen.dk/images/blue-logo-full)
-
 # Timestack (By iportalen ApS)
-___
-Timestack provides a Check in/out service for companies and organisations
-___
-
+###### - Time registration made easy
+&nbsp;
 ## Requirements
   - Java JDK 8
   - Maven 3
