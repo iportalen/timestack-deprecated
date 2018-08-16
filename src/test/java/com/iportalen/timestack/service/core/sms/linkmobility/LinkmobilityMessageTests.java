@@ -11,11 +11,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iportalen.timestack.AtworkApplication;
+import com.iportalen.timestack.TimestackApplication;
 import com.iportalen.timestack.service.sms.linkmobility.LinkmobilityMessage;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AtworkApplication.class)
+@SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
 public class LinkmobilityMessageTests {
 	

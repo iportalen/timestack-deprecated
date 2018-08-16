@@ -1,1 +1,1 @@
-${code} er din verificeringskode til AtWork
+${code} er din verificeringskode til Timestack

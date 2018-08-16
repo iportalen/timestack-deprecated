@@ -1,1 +1,1 @@
-${code} is your verification code for AtWork
+${code} is your verification code for Timestack

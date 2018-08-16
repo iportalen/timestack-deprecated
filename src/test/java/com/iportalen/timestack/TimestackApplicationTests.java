@@ -13,9 +13,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AtworkApplication.class)
+@SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
-public class AtworkApplicationTests {
+public class TimestackApplicationTests {
 	
 	@Autowired private ApplicationContext applicationContext;
 

@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.iportalen.timestack.AtworkApplication;
+import com.iportalen.timestack.TimestackApplication;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AtworkApplication.class)
+@SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
 public class WebSecurityConfigTests {
 

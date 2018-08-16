@@ -20,7 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.iportalen.timestack.AtworkApplication;
+import com.iportalen.timestack.TimestackApplication;
 
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
@@ -29,7 +29,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AtworkApplication.class)
+@SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
 public class PhoneVerificationSmsTemplateTests {
 
@@ -58,7 +58,7 @@ public class PhoneVerificationSmsTemplateTests {
 
 		String expectedMessage = new StringBuilder()
 				.append(SMS_VERIFICATION_CODE)
-				.append(" er din verificeringskode til AtWork")
+				.append(" er din verificeringskode til Timestack")
 				.toString();
 
 		freemarkerConfiguration.getTemplate(PHONENUMBER_VERIFICATION_SMS_PATH, new Locale("da_DK"))
@@ -72,7 +72,7 @@ public class PhoneVerificationSmsTemplateTests {
 
 		String expectedMessage = new StringBuilder()
 				.append(SMS_VERIFICATION_CODE)
-				.append(" is your verification code for AtWork")
+				.append(" is your verification code for Timestack")
 				.toString();
 
 		freemarkerConfiguration.getTemplate(PHONENUMBER_VERIFICATION_SMS_PATH, Locale.US)

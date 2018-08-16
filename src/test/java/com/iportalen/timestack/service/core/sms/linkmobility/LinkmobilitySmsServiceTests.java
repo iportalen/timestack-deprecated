@@ -9,14 +9,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.iportalen.timestack.AtworkApplication;
+import com.iportalen.timestack.TimestackApplication;
 import com.iportalen.timestack.service.sms.MalformedSmsMessageException;
 import com.iportalen.timestack.service.sms.SmsMessage;
 import com.iportalen.timestack.service.sms.SmsService;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = AtworkApplication.class)
+@SpringBootTest(classes = TimestackApplication.class)
 @ActiveProfiles("test")
 public class LinkmobilitySmsServiceTests {
 	
