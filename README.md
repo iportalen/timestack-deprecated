@@ -28,7 +28,7 @@ ___
 In order to run Timestack you need to follow the following steps.
 
 #### Project configuration
-> This project configuration is for development builds. Replace **dev** with **prod** to make a prod configuration.
+(This project configuration is for development builds. Replace **dev** with **prod** to make a prod configuration)
 1. Copy **src/main/resources/application-env.yaml.model** as **src/main/resources/application-dev.yaml**
 2. Populate the newly created file your own configurations.
 
