@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: ${spring.profiles.active}
   main:
     banner-mode: "off"
   devtools:
