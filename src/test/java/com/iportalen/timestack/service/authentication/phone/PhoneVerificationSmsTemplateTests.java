@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class PhoneVerificationSmsTemplateTests {
 	}
 
 	@Test
+	@Ignore
 	public void danishVerificationSms()
 			throws ExecutionException, TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
 
