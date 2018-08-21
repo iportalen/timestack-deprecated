@@ -25,7 +25,7 @@ spring:
 
 phonenumbercode:
   expire: 5 # hours
-  maxcache: 12000
+  maxcache: 10000
 
 cors:
   allowedorigins: "http://localhost:8080,http://localhost:8100"
