@@ -17,6 +17,9 @@ import javax.validation.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,9 +43,11 @@ public class User implements UserDetails {
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "firebase_uid", unique = true)
 	private String firebaseUid;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@Column(name = "password")
 	private String password;
 
@@ -53,6 +58,7 @@ public class User implements UserDetails {
 	@Column(name = "phonenumber", unique= true)
 	private String phonenumber;
 
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> authorities;
 
