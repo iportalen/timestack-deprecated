@@ -42,4 +42,4 @@ For development builds/runs you don't need sms gateway properties. In fact they 
 mvn spring-boot:run -Pdev
 ```
 
-You're all set!
+You're all set!!
