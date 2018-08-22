@@ -24,7 +24,7 @@ spring:
     change-log: "classpath:db/changelog/db.changelog-master.yaml"
 
 phonenumbercode:
-  expire: 5 # hours
+  expire: 6 # hours
   maxcache: 10000
 
 cors:
