@@ -96,10 +96,12 @@ public class LinkmobilitySmsService implements SmsService {
 	private LinkmobilityMessage createLinkmobilityMessage(SmsMessage message) throws MalformedSmsMessageException {
 		try {
 			StringWriter stringWriter = new StringWriter();
-			if(message.getTemplate() != null)
+			if(message.getTemplate() != null) {
+				freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/templates");
 				freemarkerConfiguration.getTemplate(message.getTemplate(), Locale.US).process(message.getDataModel(), stringWriter);
-			else 
+			} else {
 				stringWriter.append(message.getText());
+			}
 			
 			return LinkmobilityMessage.builder()
 					.sender(this.sender)
