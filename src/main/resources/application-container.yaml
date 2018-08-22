@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    include: default
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false 
+  datasource:
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    driver-class-name: ${TIMESTACK_DATABASE_DRIVER}
+    url: ${TIMESTACK_DATABASE_URL}
+    username: ${TIMESTACK_DATABASE_USERNAME}
+    password: ${TIMESTACK_DATABASE_PASSWORD}
+  
+sms:
+  gateway:
+    linkmobility:
+      apikey: ${LINKMOBILITY_API_KEY}
+      uri:
+        send: "http://api.linkmobility.dk/v2/message.json"  
+  
+cors:
+  allowedorigins: "*"
+
+        
+firebase:
+  enabled: true
+  database:
+    url: ${FIREBASE_DATABASE_URL}
+  config:
+    string: ${FIREBASE_CONFIGURATION}

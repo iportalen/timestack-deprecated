@@ -1,11 +1,6 @@
 spring:
   main:
     banner-mode: "off"
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
   freemarker:
     template-loader-path: "classpath:/templates/"
     suffix: ".ftl"
@@ -26,12 +21,6 @@ spring:
 phonenumbercode:
   expire: 5 # hours
   maxcache: 10000
-
-cors:
-  allowedorigins: "http://localhost:8080,http://localhost:8100"
-
-firebase:
-  enabled: false
 
 server:
   port: "8080"
