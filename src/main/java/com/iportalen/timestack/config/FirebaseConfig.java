@@ -1,12 +1,15 @@
 package com.iportalen.timestack.config;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -31,13 +34,28 @@ public class FirebaseConfig {
 	@Value("${firebase.database.url}")
 	private String databaseUrl;
 
-	@Value("classpath:${firebase.config.path}")
-	private Resource config;
+	@Value("${firebase.config.path:#{null}}")
+	private String configResourcePath;
+	
+	private Resource configResource;
+	
+	@Value("${firebase.config.string}")
+	private String config;
 	
 	@PostConstruct
 	public void init() throws IOException {
 		if (!FirebaseApp.getApps().isEmpty()) // 
 	        return;
+		
+
+		// Determine how we configure firebase
+		InputStream configStream = null;
+		if(configResourcePath != null) {
+			configResource = new ByteArrayResource(configResourcePath.getBytes());
+			configStream = configResource.getInputStream();
+		} else {
+			configStream = new ByteArrayInputStream(config.getBytes());
+		}
 		
 		/**
 		 * https://firebase.google.com/docs/admin/setup
@@ -46,7 +64,7 @@ public class FirebaseConfig {
 		 */
 		
 		FirebaseOptions options = new FirebaseOptions.Builder()
-		    .setCredentials(GoogleCredentials.fromStream(config.getInputStream()))
+		    .setCredentials(GoogleCredentials.fromStream(configStream))
 		    .setDatabaseUrl(databaseUrl)
 		    .build();
 
