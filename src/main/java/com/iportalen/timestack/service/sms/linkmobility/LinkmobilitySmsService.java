@@ -97,7 +97,7 @@ public class LinkmobilitySmsService implements SmsService {
 		try {
 			StringWriter stringWriter = new StringWriter();
 			if(message.getTemplate() != null)
-				freemarkerConfiguration.getTemplate(message.getTemplate(), new Locale("da_DK")).process(message.getDataModel(), stringWriter);
+				freemarkerConfiguration.getTemplate(message.getTemplate(), Locale.US).process(message.getDataModel(), stringWriter);
 			else 
 				stringWriter.append(message.getText());
 			
