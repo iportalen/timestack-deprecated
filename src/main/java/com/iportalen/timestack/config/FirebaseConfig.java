@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.google.auth.oauth2.GoogleCredentials;
@@ -37,10 +37,10 @@ public class FirebaseConfig {
 	@Value("${firebase.config.path:#{null}}")
 	private String configResourcePath;
 	
-	private Resource configResource;
-	
-	@Value("${firebase.config.string}")
+	@Value("${firebase.config.string:#{null}}")
 	private String config;
+	
+	private Resource configResource;
 	
 	@PostConstruct
 	public void init() throws IOException {
@@ -51,7 +51,7 @@ public class FirebaseConfig {
 		// Determine how we configure firebase
 		InputStream configStream = null;
 		if(configResourcePath != null) {
-			configResource = new ByteArrayResource(configResourcePath.getBytes());
+			configResource = new ClassPathResource(configResourcePath);
 			configStream = configResource.getInputStream();
 		} else {
 			configStream = new ByteArrayInputStream(config.getBytes());

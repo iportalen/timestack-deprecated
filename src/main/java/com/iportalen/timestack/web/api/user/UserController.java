@@ -25,7 +25,7 @@ public class UserController {
 		return userRepository.findByUsername(name);
 	}
 	
-	@GetMapping("/updateEmail")
+	@GetMapping("/updateEmail") 
 	public User updateEmail(@RequestParam String newEmail) {
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByUsername(name);

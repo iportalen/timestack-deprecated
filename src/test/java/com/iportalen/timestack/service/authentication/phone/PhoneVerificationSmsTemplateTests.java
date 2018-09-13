@@ -1,19 +1,11 @@
 package com.iportalen.timestack.service.authentication.phone;
 
-import static com.iportalen.timestack.service.sms.SmsTemplateConstants.PHONENUMBER_VERIFICATION_SMS_ARG_CODE;
-import static com.iportalen.timestack.service.sms.SmsTemplateConstants.PHONENUMBER_VERIFICATION_SMS_PATH;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +14,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.iportalen.timestack.TimestackApplication;
+import com.iportalen.timestack.service.template.freemarker.FreemarkerTemplateProcessingService;
+import com.iportalen.timestack.service.template.templates.sms.PhoneVerificationTemplate;
 
 import freemarker.core.ParseException;
-import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
@@ -36,36 +29,19 @@ public class PhoneVerificationSmsTemplateTests {
 
 	private static final String SMS_VERIFICATION_CODE = "123456";
 
-	private static Map<String, String> inputs;
-	private StringWriter stringWriter;
-
 	@Autowired
-	protected Configuration freemarkerConfiguration;
-
-	@BeforeClass
-	public static void setUp() {
-		inputs = new HashMap<String, String>();
-		inputs.put(PHONENUMBER_VERIFICATION_SMS_ARG_CODE, SMS_VERIFICATION_CODE);
-	}
-
-	@Before
-	public void beforeEach() {
-		this.stringWriter = new StringWriter();
-	}
+	protected FreemarkerTemplateProcessingService freemarkerTemplateService;
 
 	@Test
-	@Ignore
 	public void danishVerificationSms()
 			throws ExecutionException, TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException, TemplateException {
-
 		String expectedMessage = new StringBuilder()
 				.append(SMS_VERIFICATION_CODE)
 				.append(" er din verificeringskode til Timestack")
 				.toString();
-
-		freemarkerConfiguration.getTemplate(PHONENUMBER_VERIFICATION_SMS_PATH, new Locale("da_DK"))
-				.process(inputs, stringWriter);
-		assertEquals(expectedMessage, stringWriter.toString());
+		
+		PhoneVerificationTemplate template = new PhoneVerificationTemplate(SMS_VERIFICATION_CODE);
+		assertEquals(expectedMessage, this.freemarkerTemplateService.process(template, Locale.forLanguageTag("da-DK")));
 	}
 
 	@Test
@@ -77,10 +53,8 @@ public class PhoneVerificationSmsTemplateTests {
 				.append(" is your verification code for Timestack")
 				.toString();
 
-		freemarkerConfiguration.getTemplate(PHONENUMBER_VERIFICATION_SMS_PATH, Locale.US)
-				.process(inputs, stringWriter);
-		assertEquals(expectedMessage, stringWriter.toString());
-
+		PhoneVerificationTemplate template = new PhoneVerificationTemplate(SMS_VERIFICATION_CODE);
+		assertEquals(expectedMessage, this.freemarkerTemplateService.process(template, Locale.US));
 	}
-
+	
 }

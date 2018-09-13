@@ -2,6 +2,7 @@ spring:
   main:
     banner-mode: "off"
   freemarker:
+    check-template-location: true
     template-loader-path: "classpath:/templates/"
     suffix: ".ftl"
   h2:

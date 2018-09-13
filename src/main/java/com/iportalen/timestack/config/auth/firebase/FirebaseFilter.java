@@ -15,8 +15,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.iportalen.timestack.service.exception.FirebaseTokenInvalidException;
 import com.iportalen.timestack.service.firebase.FirebaseService;
 
-import lombok.extern.slf4j.Slf4j;
-
 public class FirebaseFilter extends OncePerRequestFilter {
 
 	private static String HEADER_NAME = "X-Authorization-Firebase";

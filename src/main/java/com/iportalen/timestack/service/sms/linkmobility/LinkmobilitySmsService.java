@@ -1,8 +1,5 @@
 package com.iportalen.timestack.service.sms.linkmobility;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Locale;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -18,12 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.iportalen.timestack.service.sms.MalformedSmsMessageException;
-import com.iportalen.timestack.service.sms.SmsMessage;
+import com.iportalen.timestack.service.sms.SMS;
 import com.iportalen.timestack.service.sms.SmsService;
 
 import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -47,11 +42,19 @@ public class LinkmobilitySmsService implements SmsService {
 		this.messageQueue = new ArrayBlockingQueue<LinkmobilityMessage>(1000, true);
 		start();
 	}
-
+	
 	@Override
-	public void sendMessage(SmsMessage message) throws MalformedSmsMessageException {
+	public void sendMessage(SMS message) {
 		LinkmobilityMessage linkmobilityMessage = createLinkmobilityMessage(message);
 		this.messageQueue.add(linkmobilityMessage);
+	}
+	
+	private LinkmobilityMessage createLinkmobilityMessage(SMS message) {
+		return LinkmobilityMessage.builder()
+				.sender(this.sender)
+				.recipients(message.getRecipients())
+				.message(message.getText())
+				.build();
 	}
 	
 	@Override
@@ -59,7 +62,7 @@ public class LinkmobilitySmsService implements SmsService {
 		this.messageSendExecutor.shutdown();
 		log.info("Stopped LinkmobilitySmsService");
 	}
-
+	
 	@Override
 	public void start() {
 		this.messageSendExecutor = Executors.newSingleThreadExecutor();
@@ -80,7 +83,7 @@ public class LinkmobilitySmsService implements SmsService {
 		};
 		messageSendExecutor.submit(takeStringFromQueueAndPrint);
 	}
-
+	
 	private void send(LinkmobilityMessage message) {
 		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.sendUri).queryParam("apikey", this.apiKey);
 		
@@ -91,27 +94,6 @@ public class LinkmobilitySmsService implements SmsService {
 		} else {
 			log.info("Failed to send SMS to " + StringUtils.join(message.getRecipients(), ","));
 		}
-	}
-
-	private LinkmobilityMessage createLinkmobilityMessage(SmsMessage message) throws MalformedSmsMessageException {
-		try {
-			StringWriter stringWriter = new StringWriter();
-			if(message.getTemplate() != null) {
-				freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/templates");
-				freemarkerConfiguration.getTemplate(message.getTemplate(), Locale.US).process(message.getDataModel(), stringWriter);
-			} else {
-				stringWriter.append(message.getText());
-			}
-			
-			return LinkmobilityMessage.builder()
-					.sender(this.sender)
-					.recipients(message.getRecipients())
-					.message(stringWriter.toString())
-					.build();
-		} catch (TemplateException | IOException e) {
-			throw new MalformedSmsMessageException("Malformed SMS message!");
-		}
-		
 	}
 
 }

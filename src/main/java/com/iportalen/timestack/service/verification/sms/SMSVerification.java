@@ -1,4 +1,4 @@
-package com.iportalen.timestack.service.authentication.phone;
+package com.iportalen.timestack.service.verification.sms;
 
 import java.util.Random;
 import java.util.UUID;
@@ -8,12 +8,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import lombok.Data;
 
 @Data
-public class VerificationCode {
+public class SMSVerification {
 	
 	private String code;
 	private String token;
 	
-	public VerificationCode() {
+	public SMSVerification() {
 		this.code = generateCode();
 		this.token = generateToken();
 	}
