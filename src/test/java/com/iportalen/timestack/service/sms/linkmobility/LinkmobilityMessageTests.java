@@ -22,7 +22,7 @@ public class LinkmobilityMessageTests {
 	ObjectMapper objectMapper;
 	
 	@Test
-	public void messageSerialization() throws JsonProcessingException {
+	public void correctMessageFormat() throws JsonProcessingException {
 		LinkmobilityMessage message = LinkmobilityMessage.builder().recipients(new String[]{"+4587654321"}).message("testmessage").sender("sender").build();
 		assertEquals("{\"message\":{\"recipients\":\"+4587654321\",\"sender\":\"sender\",\"message\":\"testmessage\"}}", objectMapper.writeValueAsString(message));
 	}
