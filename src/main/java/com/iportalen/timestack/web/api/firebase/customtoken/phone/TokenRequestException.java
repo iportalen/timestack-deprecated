@@ -9,6 +9,7 @@ public class TokenRequestException extends RuntimeException {
 	
 	public TokenRequestException(HttpStatus httpStatus, String message) {
         super(message);
+        this.httpStatus = httpStatus;
     }
 	
 	public HttpStatus getHttpStatus() {

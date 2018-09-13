@@ -43,13 +43,14 @@ public class FirebasePhoneTokenController {
     @PostMapping("/token")
     public ResponseEntity<?> requestToken(@RequestBody FirebasePhoneTokenRequest phonenumberCodeRequest, HttpServletRequest request) throws AuthenticationException {
     	String phonenumber = phonenumberCodeRequest.getPhonenumber();
-    	log.info("Phonenumber " + phonenumber + " requests verification code");
 		try {
 			validatePhonenumber(phonenumber);
 			SMSVerification smsVerification = createVerificationCode(phonenumber);
+			log.info("Sending verification code to " + phonenumber);
 			smsVerificationSender.send(phonenumber, smsVerification.getCode(), request.getLocale());
     		return ResponseEntity.ok().body(new FirebasePhoneTokenResponse(smsVerification.getToken()));
 		} catch (TokenRequestException e) {
+			log.info("Could not create a token for \"" + phonenumber + "\". " + e.getMessage());
 			return ResponseEntity.status(e.getHttpStatus()).body(e.getMessage());
 		}
     }
