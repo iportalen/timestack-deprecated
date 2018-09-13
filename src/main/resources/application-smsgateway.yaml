@@ -1,0 +1,4 @@
+sms:
+  gateway:
+    linkmobility:
+      apikey: ${LINKMOBILITY_API_KEY}

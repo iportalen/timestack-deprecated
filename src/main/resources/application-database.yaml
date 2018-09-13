@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    testWhileIdle: "true"
+    validationQuery: "SELECT 1"
+    driver-class-name: ${TIMESTACK_DATABASE_DRIVER}
+    url: ${TIMESTACK_DATABASE_URL}
+    username: ${TIMESTACK_DATABASE_USERNAME}
+    password: ${TIMESTACK_DATABASE_PASSWORD}
+  

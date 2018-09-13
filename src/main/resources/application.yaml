@@ -19,6 +19,16 @@ spring:
     enabled: true
     change-log: "classpath:db/changelog/db.changelog-master.yaml"
 
+cors:
+  allowedorigins: "http://localhost:8080,http://localhost:8100"
+
+sms:
+  gateway:
+    linkmobility:
+      sender: "TimeStack"
+      uri:
+        send: "http://api.linkmobility.dk/v2/message.json"
+
 phonenumbercode:
   expire: 5 # hours
   maxcache: 10000

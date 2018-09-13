@@ -1,0 +1,5 @@
+firebase:
+  enabled: true
+  database:
+    url: ${FIREBASE_DATABASE_URL}
+  config: ${FIREBASE_CONFIGURATION}
