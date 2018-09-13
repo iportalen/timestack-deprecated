@@ -10,23 +10,15 @@ spring:
     testWhileIdle: "true"
     validationQuery: "SELECT 1"
     driver-class-name: "com.mysql.jdbc.Driver"
-    url: "DATABASE_URL"
-    username: "DATABASE_USERNAME"
-    password: "DATABASE_PASSWORD"
-  
+    url: "jdbc:mysql://localhost:3306/timestack?useSSL=false&requireSSL=false&zeroDateTimeBehavior=convertToNull&useUnicode=yes&characterEncoding=UTF-8"
+    username: "username"
+    password: "password"
+
 cors:
   allowedorigins: "*"
 
 firebase:
   enabled: true
+  config: ${FIREBASE_CONFIGURATION}
   database:
-    url: "https://DATABASE_URL.firebaseio.com"
-  config:
-    path: "firebase/FIREBASE_CONFIG_FILE"
-      
-sms:
-  gateway:
-    linkmobility:
-      apikey: "API_KEY"
-      url:
-        send: "http://api.linkmobility.dk/v2/message.json"
+    url: ${FIREBASE_DATABASE_URL}
