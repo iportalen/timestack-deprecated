@@ -5,10 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,22 +18,17 @@ import com.iportalen.timestack.service.sms.SmsService;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;
 
-@Service
-@Profile("prod")
 @Slf4j
 public class LinkmobilitySmsService implements SmsService {
+	private String sender;
+	private String apiKey;
+	private String sendUri;
 
-	private final String sender = "ProjectX - Verification code"; 
-	private final String apiKey;
-	private final String sendUri;
-	
 	private BlockingQueue<LinkmobilityMessage> messageQueue;
 	private ExecutorService messageSendExecutor;
 	
-	@Autowired
-	protected Configuration freemarkerConfiguration;
-
-	public LinkmobilitySmsService(@Value("${sms.gateway.linkmobility.apikey}") String apiKey, @Value("${sms.gateway.linkmobility.uri.send}") String sendUri) {
+	public LinkmobilitySmsService(String apiKey, String sendUri, String sender) {
+		this.sender = sender;
 		this.apiKey = apiKey;
 		this.sendUri = sendUri;
 		this.messageQueue = new ArrayBlockingQueue<LinkmobilityMessage>(1000, true);
@@ -88,12 +80,19 @@ public class LinkmobilitySmsService implements SmsService {
 		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(this.sendUri).queryParam("apikey", this.apiKey);
 		
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> response = restTemplate.postForEntity(uriBuilder.toUriString(), message, String.class);
-		if(response.getStatusCode().equals(HttpStatus.OK)) {
-			log.info("Sent SMS to " + StringUtils.join(message.getRecipients(), ","));
-		} else {
-			log.info("Failed to send SMS to " + StringUtils.join(message.getRecipients(), ","));
+		try {
+			ResponseEntity<String> response = restTemplate.postForEntity(uriBuilder.toUriString(), message, String.class);
+			if (!response.getStatusCode().equals(HttpStatus.CREATED))
+				throw new Exception();
+
+			log.info("Sent SMS to " + String.join(",", message.getRecipients()));
+		} catch (Exception e) {
+			log.info("Failed to send SMS to " + String.join(",", message.getRecipients()), e.getMessage());
 		}
+	}
+	
+	public String getSender() {
+		return this.sender;
 	}
 
 }
