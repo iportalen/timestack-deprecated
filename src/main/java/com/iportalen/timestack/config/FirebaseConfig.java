@@ -34,11 +34,11 @@ public class FirebaseConfig {
 	@Value("${firebase.database.url}")
 	private String databaseUrl;
 
-	@Value("${firebase.config.path:#{null}}")
-	private String configResourcePath;
-	
-	@Value("${firebase.config.string:#{null}}")
+	@Value("${firebase.config:#{null}}")
 	private String config;
+
+	@Value("${firebase.config.path:#{null}}")
+	private String configPath;
 	
 	private Resource configResource;
 	
@@ -50,8 +50,8 @@ public class FirebaseConfig {
 
 		// Determine how we configure firebase
 		InputStream configStream = null;
-		if(configResourcePath != null) {
-			configResource = new ClassPathResource(configResourcePath);
+		if(configPath != null) {
+			configResource = new ClassPathResource(configPath);
 			configStream = configResource.getInputStream();
 		} else {
 			configStream = new ByteArrayInputStream(config.getBytes());
