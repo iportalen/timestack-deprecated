@@ -37,7 +37,7 @@ public class FirebaseConfig {
 	@Value("${firebase.config:#{null}}")
 	private String config;
 
-	@Value("${firebase.config.path:#{null}}")
+	@Value("${firebase.configpath:#{null}}")
 	private String configPath;
 	
 	private Resource configResource;
